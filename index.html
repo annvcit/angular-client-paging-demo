@@ -1,0 +1,41 @@
+<html ng-app="angular.paging">
+<head>
+    <title>Angular Paging</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="PagingController as vm">
+
+    <div class="contaner">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <th ng-repeat="header in vm.table.headers" class="text-capitalize">{{ header }}</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat-start="product in vm.table.products | limitTo: vm.paging.limit : vm.paging.begin track by product.id">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ product.productName }}</td>
+                            <td>{{ product.price }}</td>
+                        </tr>
+                        <tr ng-repeat-end></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <ul uib-pagination="" ng-model="vm.paging.currentPage" items-per-page="vm.paging.limit" total-items="vm.paging.totalItems" ng-change="vm.changePage()"></ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/paging.controller.js"></script>
+    <script src="app/paging.service.js"></script>
+</body>
+</html>
